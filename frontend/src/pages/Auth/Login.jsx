@@ -5,6 +5,7 @@ import {validateEmail} from "../../utils/helper";
 import axiosInstance from "../../utils/axiosinstance";
 import { API_PATHS } from "../../utils/apiPaths"; // or wherever it is defined
 import { UserContext } from "../../context/userContext";
+import SpinnerLoader from "../../components/Loader/SpinnerLoader";
 const Login = ({ onClose, setCurrentPage }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -76,7 +77,7 @@ const Login = ({ onClose, setCurrentPage }) => {
         {error && <p className="text-red-500 text-sm pb-2.5">{error}</p>}
 
         <button type="submit" className="btn-primary">
-          LOGIN
+          {isLoading && <SpinnerLoader/>}LOGIN
         </button>
 
         <p className="text-sm text-slate-800 mt-3">

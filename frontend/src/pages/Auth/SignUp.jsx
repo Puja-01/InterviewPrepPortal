@@ -7,6 +7,7 @@ import { UserContext } from "../../context/userContext";
 import { API_PATHS } from '../../utils/apiPaths';
 import axiosInstance from '../../utils/axiosinstance';
 import uploadImage from '../../utils/uploadImage';
+import SpinnerLoader from '../../components/Loader/SpinnerLoader';
 const SignUp = ({ setCurrentPage }) => {
   const [profilePic, setProfilePic] = useState(null);
   const [fullName, setFullName] = useState("");
@@ -109,7 +110,7 @@ const handleSignUp = async (e) => {
         {error && <p className="text-red-500 text-sm pb-2.5">{error}</p>}
 
         <button type="submit" className="btn-primary">
-          SIGN UP
+          {isLoading && <SpinnerLoader/>}SIGN UP
         </button>
 
         <p className="text-sm text-slate-800 mt-3">
