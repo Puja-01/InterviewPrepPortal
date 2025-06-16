@@ -2,77 +2,77 @@ import React, { useState, useContext } from 'react';
 import Input from "../../components/Inputs/Input";
 import ProfilePhotoSelector from "../../components/Inputs/ProfilePhotoSelector";
 import { useNavigate } from "react-router-dom";
-import {validateEmail} from "../../utils/helper";
+import { validateEmail } from "../../utils/helper";
 import { UserContext } from "../../context/userContext";
 import { API_PATHS } from '../../utils/apiPaths';
 import axiosInstance from '../../utils/axiosinstance';
 import uploadImage from '../../utils/uploadImage';
 import SpinnerLoader from '../../components/Loader/SpinnerLoader';
+
 const SignUp = ({ setCurrentPage }) => {
   const [profilePic, setProfilePic] = useState(null);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  
-  const {updateUser} =useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(false); // ✅ Added loading state
 
-  const navigate=useNavigate();
+  const { updateUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  // Handle SignUp Form Submit
-const handleSignUp = async (e) => {
-  e.preventDefault();
+  const handleSignUp = async (e) => {
+    e.preventDefault();
 
-  let profileImageUrl = "";
+    let profileImageUrl = "";
 
-  // Validation checks
-  if (!fullName) {
-    setError("Please enter full name.");
-    return;
-  }
-
-  if (!validateEmail(email)) {
-    setError("Please enter a valid email address.");
-    return;
-  }
-
-  if (!password) {
-    setError("Please enter the password.");
-    return;
-  }
-
-  // Clear any existing error
-  setError("");
-
-  // SignUp API Call
-  try {
-    // Upload image if present
-    if(profilePic){
-      const imgUploadRes = await uploadImage(profilePic);
-      profileImageUrl = imgUploadRes.imageUrl || "";
+    if (!fullName) {
+      setError("Please enter full name.");
+      return;
     }
-    const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER,{
-      name: fullName,
-      email,
-      password,
-      profileImageUrl,
-    });
-    const { token } = response.data;
 
-    if(token) {
-      localStorage.setItem("token", token);
-      updateUser(response.data);
-      navigate("/dashboard");
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
     }
-  } catch (error) {
-    if (error.response && error.response.data.message) {
-      setError(error.response.data.message);
-    } else {
-      setError("Something went wrong. Please try again.");
-    }
-  }
-};
 
+    if (!password) {
+      setError("Please enter the password.");
+      return;
+    }
+
+    setError("");
+    setIsLoading(true); // ✅ Start loading
+
+    try {
+      if (profilePic) {
+        const imgUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imgUploadRes.imageUrl || "";
+      }
+
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+        name: fullName,
+        email,
+        password,
+        profileImageUrl,
+      });
+
+      const { token } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
+        updateUser(response.data);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    } finally {
+      setIsLoading(false); // ✅ Stop loading
+    }
+  };
 
   return (
     <div className="w-[90vw] md:w-[33vw] p-7 flex flex-col justify-center">
@@ -109,8 +109,8 @@ const handleSignUp = async (e) => {
 
         {error && <p className="text-red-500 text-sm pb-2.5">{error}</p>}
 
-        <button type="submit" className="btn-primary">
-          {isLoading && <SpinnerLoader/>}SIGN UP
+        <button type="submit" className="btn-primary w-full mt-2" disabled={isLoading}>
+          {isLoading && <SpinnerLoader />}SIGN UP
         </button>
 
         <p className="text-sm text-slate-800 mt-3">

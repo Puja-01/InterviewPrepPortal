@@ -1,23 +1,24 @@
-import React, { useContext,useState } from "react";
+import React, { useContext, useState } from "react";
 import Input from "../../components/Inputs/Input";
 import { useNavigate } from "react-router-dom";
-import {validateEmail} from "../../utils/helper";
+import { validateEmail } from "../../utils/helper";
 import axiosInstance from "../../utils/axiosinstance";
-import { API_PATHS } from "../../utils/apiPaths"; // or wherever it is defined
+import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/userContext";
 import SpinnerLoader from "../../components/Loader/SpinnerLoader";
+
 const Login = ({ onClose, setCurrentPage }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // ✅ Declare isLoading
 
-  const {updateUser} =useContext(UserContext);
-  const navigate=useNavigate();
-  // Handle Login Form Submit
+  const { updateUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
@@ -29,8 +30,9 @@ const Login = ({ onClose, setCurrentPage }) => {
     }
 
     setError("");
-    // Login API Call
-    try{
+    setIsLoading(true); // ✅ Start loading
+
+    try {
       const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
         email,
         password,
@@ -38,17 +40,19 @@ const Login = ({ onClose, setCurrentPage }) => {
 
       const { token } = response.data;
 
-      if(token){
+      if (token) {
         localStorage.setItem("token", token);
-        updateUser(response.data)
+        updateUser(response.data);
         navigate("/dashboard");
       }
-    }catch(error){
-      if(error.response && error.response.data.message){
+    } catch (error) {
+      if (error.response && error.response.data.message) {
         setError(error.response.data.message);
-      }else{
-        setError("Something went wrong. Please try again.")
+      } else {
+        setError("Something went wrong. Please try again.");
       }
+    } finally {
+      setIsLoading(false); // ✅ Stop loading
     }
   };
 
@@ -76,20 +80,19 @@ const Login = ({ onClose, setCurrentPage }) => {
         />
         {error && <p className="text-red-500 text-sm pb-2.5">{error}</p>}
 
-        <button type="submit" className="btn-primary">
-          {isLoading && <SpinnerLoader/>}LOGIN
+        <button type="submit" className="btn-primary w-full" disabled={isLoading}>
+          {isLoading && <SpinnerLoader />}LOGIN
         </button>
 
         <p className="text-sm text-slate-800 mt-3">
           Don't have an account?{" "}
-         <button
-  type="button"
-  className="font-medium text-primary underline cursor-pointer"
-  onClick={() => setCurrentPage("signup")}
->
-  Sign Up
-</button>
-
+          <button
+            type="button"
+            className="font-medium text-primary underline cursor-pointer"
+            onClick={() => setCurrentPage("signup")}
+          >
+            Sign Up
+          </button>
         </p>
       </form>
     </div>
