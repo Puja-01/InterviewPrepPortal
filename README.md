@@ -17,6 +17,24 @@ A personalized AI-powered platform to prepare for technical interviews by genera
 
 ---
 
+## 👁️ Preview
+
+### > Landing Page
+![HomePage](Snapshots/Home.png)
+
+### > Registration Form
+![Registration](Snapshots/Registration.png)
+
+### > Create Session Form
+![AddSession](Snapshots/AddSession.png)
+
+### > Dashboard
+![Dashboard](Snapshots/Dashboard.png)
+
+### > Interview Page
+![InterviewPage](Snapshots/InterviewPage.png)
+
+---
 ## 🛠️ Tech Stack
 
 - **Frontend:** React, Tailwind CSS, JavaScript  
