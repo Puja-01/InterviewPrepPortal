@@ -14,9 +14,10 @@ const app=express();
 //Midddleware to handle CORS
 app.use(
     cors({
-            origin:"*",
+            origin:"https://interviewprepportal-frontend.onrender.com",
             methods: ["GET","POST","PUT","DELETE"],
             allowedHeaders: ["Content-Type","Authorization"],
+            credentials: true
         })
 );
 
