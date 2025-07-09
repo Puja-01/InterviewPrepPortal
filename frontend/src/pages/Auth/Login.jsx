@@ -57,9 +57,9 @@ const Login = ({ onClose, setCurrentPage }) => {
   };
 
   return (
-    <div className="w-[90vw] md:w-[33vw] p-7 flex flex-col justify-center bg-white rounded-lg shadow-md">
-      <h3 className="text-xl font-semibold text-gray-800">Welcome Back</h3>
-      <p className="text-sm text-gray-600 mt-[5px] mb-6">
+    <div className="w-[90vw] md:w-[33vw] p-7 flex flex-col justify-center">
+      <h3 className="text-xl font-semibold text-black">Welcome Back</h3>
+      <p className="text-sm text-slate-700 mt-[5px] mb-6">
         Please enter your details to log in
       </p>
 
@@ -69,7 +69,7 @@ const Login = ({ onClose, setCurrentPage }) => {
           onChange={({ target }) => setEmail(target.value)}
           label="Email Address"
           placeholder="john@example.com"
-          type="email"
+          type="text"
         />
         
         <Input
@@ -96,22 +96,11 @@ const Login = ({ onClose, setCurrentPage }) => {
 
         {error && <p className="text-red-500 text-sm pb-2.5">{error}</p>}
 
-        <button
-          type="submit"
-          className="btn-primary w-full mt-2 uppercase"
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <>
-              <SpinnerLoader />
-              <span className="ml-2">LOGGING IN...</span>
-            </>
-          ) : (
-            "LOG IN"
-          )}
+        <button type="submit" className="btn-primary w-full" disabled={isLoading}>
+          {isLoading && <SpinnerLoader />}LOGIN
         </button>
 
-        <p className="text-sm text-gray-600 mt-3 text-center">
+        <p className="text-sm text-slate-800 mt-3">
           Don't have an account?{" "}
           <button
             type="button"
