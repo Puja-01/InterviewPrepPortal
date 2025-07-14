@@ -151,7 +151,7 @@ const InterviewPrep = () => {
           : ""
       }
     />
-    <div className="container mx-auto pt-4 pb-4 px-4 md:px-0 bg-gray-900 text-white min-h-screen">
+    <div className="container max-w-[1200px] mx-auto pt-4 pb-4 px-4 md:px-0 bg-gray-900 text-white min-h-screen">
       {/* bg-gray-900 = dark background, text-white for text color, min-h-screen ensures full viewport height */}
       <h2 className="text-lg font-semibold">Interview Q & A</h2>
 
