@@ -11,7 +11,7 @@ const RoleInfoHeader = ({
 }) => {
   return (
     <div className="bg-gray-900 text-white relative">
-      <div className="container max-w-[1200px]"> {/* Updated padding */}
+      <div className="container max-w-[1200px] px-30"> {/* Updated padding */}
 
         <div className="h-[200px] flex flex-col justify-center relative z-10">
           <div className="flex items-start">
