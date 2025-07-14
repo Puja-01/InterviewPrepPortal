@@ -30,7 +30,7 @@ const LandingPage = () => {
       <div className="w-full min-h-full bg-[#0E0E10] text-white">
         <div className="w-[500px] h-[500px] bg-indigo-500/10 blur-[80px] absolute top-0 left-0" />
 
-        <div className="container mx-auto px-4 pt-6 pb-[200px] relative z-10">
+        <div className="container max-w-[1200px] mx-auto px-4 pt-6 pb-[200px] relative z-10">
           {/* Header */}
           <motion.header
             initial={{ opacity: 0, y: -20 }}
@@ -115,7 +115,7 @@ const LandingPage = () => {
 
         {/* Features Section */}
         <div className="w-full min-h-full mt-10">
-          <div className="container mx-auto px-4 pt-10 pb-20">
+          <div className="container max-w-[1200px] mx-auto px-4 pt-10 pb-20">
             <section className="mt-5">
               <h2 className="text-2xl font-medium text-center text-white mb-12">
                 Features That Make You Shine
