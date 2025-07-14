@@ -138,7 +138,9 @@ const InterviewPrep = () => {
 
   return (
   
-  <DashboardLayout>
+
+    <div className="container max-w-[1300px] mx-auto pt-4 pb-4 px-4 md:px-0 bg-gray-900 text-white min-h-screen">
+        <DashboardLayout>
     <RoleInfoHeader
       role={sessionData?.role || ""}
       topicsToFocus={sessionData?.topicsToFocus || ""}
@@ -151,8 +153,6 @@ const InterviewPrep = () => {
           : ""
       }
     />
-    <div className="container max-w-[1300px] mx-auto pt-4 pb-4 px-4 md:px-0 bg-gray-900 text-white min-h-screen">
-      {/* bg-gray-900 = dark background, text-white for text color, min-h-screen ensures full viewport height */}
       <h2 className="text-lg font-semibold">Interview Q & A</h2>
 
       <div className="grid grid-cols-12 gap-4 mt-5 mb-10">
