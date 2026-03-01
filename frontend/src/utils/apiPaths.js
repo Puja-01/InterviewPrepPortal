@@ -1,5 +1,6 @@
 export const BASE_URL = "https://interviewprepportal-backend.onrender.com";
 
+
 export const API_PATHS = {
   AUTH: {
     REGISTER: "/api/auth/register", // Signup
