@@ -21,7 +21,7 @@ app.use(
         })
 );
 
-//connectDB()
+connectDB()
 
 //Middleware
 app.use(express.json());
